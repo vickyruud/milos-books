@@ -1,0 +1,2 @@
+class Hardcover < ApplicationRecord
+end

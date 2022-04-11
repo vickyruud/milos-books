@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  display_name: MyString
+  list_name: MyString
+  list_name_encoded: MyString
+  newest_published_date: 2022-04-10 19:35:11
+  oldest_published_date: 2022-04-10 19:35:11
+  updated: MyString
+
+two:
+  display_name: MyString
+  list_name: MyString
+  list_name_encoded: MyString
+  newest_published_date: 2022-04-10 19:35:11
+  oldest_published_date: 2022-04-10 19:35:11
+  updated: MyString
