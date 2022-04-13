@@ -9,8 +9,9 @@ class HardcoversController < ApplicationController
   end
 
   def categories 
-    get_categories
-    put(get_categories)
+    @names = get_categories
+    render json:@names
+    
   end
 
   # GET /hardcovers/1
@@ -56,24 +57,15 @@ class HardcoversController < ApplicationController
 
     def get_categories
       # get JSON
-      url = 'https://api.nytimes.com/svc/books/v3/lists/names?api-key=OLwLmtGas8CilAAxE7ZXaSnSfFgvdhGQ'
-      
-      result = RestClient.get(url)
-
-      # parse JSON
-      json = result
-
-      # save data to DB
-      json['results']['books'][1..-1].each do |data| # [1..-1] ignores first dummy element
-        Category.create(
-          display_name: data['display_name'],
-          list_name: data['list_name'],
-          list_name_encoded: data['list_name_encoded'], # .gsub removes thousands separator
-          newest_published_date: data['newest_published_date'],
-          oldest_published_date: data['oldest_published_date'],
-          updated: data['updated']
-        )
+      url = URI("https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=OLwLmtGas8CilAAxE7ZXaSnSfFgvdhGQ")
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      request = Net::HTTP::Get.new(url)
+      request["api-key"] = 'OLwLmtGas8CilAAxE7ZXaSnSfFgvdhGQ'
+      request["x-rapidapi-host"] = 'api.nytimes.com'
+      response = http.request(request)
+      response.read_body     
     end
 end
 
-end

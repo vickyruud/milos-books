@@ -1,3 +1,6 @@
 class ApplicationController < ActionController::API
-  require 'rest-client'
+  require 'uri'
+  require 'net/http'
+  require 'openssl'
+
 end
